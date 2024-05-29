@@ -1,5 +1,23 @@
-variable "region" {
-  description = "The AWS region to deploy resources in"
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
+provider "aws" {
+  region  = "ap-south-1"
+  profile = "default"
+}
+
+
+
+
+
+/*variable "region" {
+description = "The AWS region to deploy resources in"
   default     = "ap-south-1"
 }
 
@@ -16,4 +34,4 @@ variable "ami" {
 variable "key_name" {
   description = "The name of the SSH key pair"
   default     = "jenkins" # Replace with your key name
-}
+}*/
