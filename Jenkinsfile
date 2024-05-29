@@ -9,11 +9,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your Terraform scripts from a version control system
-                // For example, GitHub
-                git 'https://github.com/Sainex260/terraform_final.git'
+                // Checkout the Terraform configuration files from the repository
+                checkout scm
             }
-        }
+    }
 
         stage('Initialize Terraform') {
             steps {
