@@ -47,15 +47,6 @@ resource "aws_instance" "web" {
   key_name = "jenkins"
 }
 
-terraform {
-  required_providers {
-    jenkins = {
-      source  = "taiidani/jenkins"
-      version = "~> 1.0"
-    }
-  }
-}
-
 provider "jenkins" {
   # Configuration options for the Jenkins provider
   url      = "http://13.234.231.247:8080/jenkins"
