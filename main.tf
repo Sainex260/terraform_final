@@ -1,5 +1,5 @@
 # Configure the AWS provider
-provider "hashicorp/terraform-provider-aws" {
+provider "terraform-provider-aws" {
   region = "ap-south-1"
 }
 
