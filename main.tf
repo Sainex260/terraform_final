@@ -50,7 +50,7 @@ resource "aws_instance" "web" {
 terraform {
   required_providers {
     jenkins = {
-      source  = "registry.terraform.io/hashicorp/jenkins"
+      source  = "jenkins"
       version = "~> 1.0"
     }
   }
