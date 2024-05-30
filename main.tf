@@ -20,7 +20,6 @@ resource "aws_security_group" "jenkins_sg2" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -46,4 +45,20 @@ resource "aws_instance" "web" {
 
   # Add a key pair (replace with your key name)
   key_name = "jenkins"
+}
+
+terraform {
+  required_providers {
+    jenkins = {
+      source  = "registry.terraform.io/hashicorp/jenkins"
+      version = "~> 1.0"
+    }
+  }
+}
+
+provider "jenkins" {
+  # Configuration options for the Jenkins provider
+  url      = "http://13.234.231.247:8080/jenkins"
+  username = "admin"
+  password = "admin@123"
 }
