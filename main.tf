@@ -1,5 +1,5 @@
 # Configure the AWS provider
-provider "aws" {
+provider "hashicorp/terraform-provider-aws" {
   region = "ap-south-1"
 }
 
@@ -50,7 +50,7 @@ resource "aws_instance" "web" {
 terraform {
   required_providers {
     jenkins = {
-      source  = "jenkins"
+      source  = "taiidani/jenkins"
       version = "~> 1.0"
     }
   }
