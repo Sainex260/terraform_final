@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
+      source  = "registry.terraform.io/hashicorp/aws"
       version = "~> 4.0"
     }
   }
@@ -12,26 +12,18 @@ provider "aws" {
   profile = "default"
 }
 
-
-
-
-
-/*variable "region" {
-description = "The AWS region to deploy resources in"
-  default     = "ap-south-1"
+terraform {
+  required_providers {
+    jenkins = {
+      source  = "registry.terraform.io/hashicorp/jenkins"
+      version = "~> 1.0"
+    }
+  }
 }
 
-variable "instance_type" {
-  description = "The EC2 instance type"
-  default     = "t2.medium"
+provider "jenkins" {
+  # Configuration options for the Jenkins provider
+  url      = "http://13.234.231.247:8080/jenkins"
+  username = "admin"
+  password = "admin@123"
 }
-
-variable "ami" {
-  description = "The AMI to use for the instance"
-  default     = "ami-09edb498ada567cb6" # Update as needed
-}
-
-variable "key_name" {
-  description = "The name of the SSH key pair"
-  default     = "jenkins" # Replace with your key name
-}*/
