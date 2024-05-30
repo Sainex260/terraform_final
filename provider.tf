@@ -1,4 +1,4 @@
-terraform {
+/*terraform {
   required_providers {
     aws = {
       source  = "registry.terraform.io/hashicorp/aws"
@@ -11,3 +11,5 @@ provider "aws" {
   region  = "ap-south-1"
   profile = "default"
 }
+*/
+
