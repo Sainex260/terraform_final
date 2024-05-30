@@ -4,8 +4,8 @@ provider "aws" {
 }
 
 # Create a security group
-resource "jenkins_sg2" "instance" {
-  vpc_id = vpc-013a3c69
+resource "aws_security_group" "jenkins_sg2" {
+  vpc_id = "vpc-013a3c69"
 
   ingress {
     from_port   = 22
@@ -37,8 +37,8 @@ resource "jenkins_sg2" "instance" {
 resource "aws_instance" "web" {
   ami           = "ami-09edb498ada567cb6" # Amazon Linux 2 AMI (change as needed)
   instance_type = "t2.medium"
-  subnet_id     = subnet-e8240b80
-  security_groups = [jenkins_sg2]
+  subnet_id     = "subnet-e8240b80"
+  vpc_security_group_ids = [aws_security_group.jenkins_sg2.id]
 
   tags = {
     Name = "SSPwebdeployment"
