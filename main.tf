@@ -47,6 +47,20 @@ resource "aws_instance" "web" {
   key_name = "jenkins"
 }
 
+terraform {
+required_providers {
+ aws = {
+
+      source  = "hashicorp/aws"
+
+      version = "~> 3.0"
+
+    }
+
+  }
+
+}
+
 provider "jenkins" {
   # Configuration options for the Jenkins provider
   url      = "http://13.234.231.247:8080/jenkins"
