@@ -17,10 +17,10 @@ pipeline {
             steps {
                 script {
                     // Read AWS credentials from ~/.aws/credentials file
-                    withCredentials([[$class: 'FileCredentialsBinding', credentialsId: 'aws-credentials-file', variable: 'AWS_CREDENTIALS_FILE']]) {
+                    withCredentials([[$class: 'FileCredentialsBinding', credentialsId: 'aws_credentails', variable: 'aws_cred_profile']]) {
                         // Use AWS credentials file in Terraform commands
                         sh '''
-                            export AWS_SHARED_CREDENTIALS_FILE=$AWS_CREDENTIALS_FILE
+                            export AWS_SHARED_CREDENTIALS_FILE=$aws_cred_profile
                             terraform init
                         '''
                     }
@@ -32,9 +32,9 @@ pipeline {
             steps {
                 script {
                     // Use AWS credentials file in Terraform apply
-                    withCredentials([[$class: 'FileCredentialsBinding', credentialsId: 'aws-credentials-file', variable: 'AWS_CREDENTIALS_FILE']]) {
+                    withCredentials([[$class: 'FileCredentialsBinding', credentialsId: 'aws_credentails', variable: 'aws_cred_profile']]) {
                         sh '''
-                            export AWS_SHARED_CREDENTIALS_FILE=$AWS_CREDENTIALS_FILE
+                            export AWS_SHARED_CREDENTIALS_FILE=$aws_cred_profile
                             terraform apply -auto-approve
                         '''
                     }
