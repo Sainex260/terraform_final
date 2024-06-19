@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'ap-south-1' // specify your region
-        AWS_CREDENTIALS_ID = 'aws_credentails' // replace with your AWS credentials ID
+        AWS_REGION = 'ap-south-1'
     }
 
     stages {
@@ -12,21 +11,25 @@ pipeline {
                 // Checkout the Terraform configuration files from the repository
                 checkout scm
             }
-    }
+        }
 
         stage('Initialize Terraform') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]) {
-                    sh 'terraform init'
-                }
+                sh '''
+                    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                    terraform init
+                '''
             }
         }
 
         stage('Apply Terraform') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: "${AWS_CREDENTIALS_ID}"]]) {
-                    sh 'terraform apply -auto-approve'
-                }
+                sh '''
+                    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                    terraform apply -auto-approve
+                '''
             }
         }
     }
