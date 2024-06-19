@@ -13,23 +13,32 @@ pipeline {
             }
         }
 
-        stage('Initialize Terraform') {
+        stage('Set AWS Credentials') {
             steps {
-                sh '''
-                    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-                    terraform init
-                '''
+                script {
+                    // Read AWS credentials from ~/.aws/credentials file
+                    withCredentials([[$class: 'FileCredentialsBinding', credentialsId: 'aws-credentials-file', variable: 'AWS_CREDENTIALS_FILE']]) {
+                        // Use AWS credentials file in Terraform commands
+                        sh '''
+                            export AWS_SHARED_CREDENTIALS_FILE=$AWS_CREDENTIALS_FILE
+                            terraform init
+                        '''
+                    }
+                }
             }
         }
 
         stage('Apply Terraform') {
             steps {
-                sh '''
-                    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-                    terraform apply -auto-approve
-                '''
+                script {
+                    // Use AWS credentials file in Terraform apply
+                    withCredentials([[$class: 'FileCredentialsBinding', credentialsId: 'aws-credentials-file', variable: 'AWS_CREDENTIALS_FILE']]) {
+                        sh '''
+                            export AWS_SHARED_CREDENTIALS_FILE=$AWS_CREDENTIALS_FILE
+                            terraform apply -auto-approve
+                        '''
+                    }
+                }
             }
         }
     }
